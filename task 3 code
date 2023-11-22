@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+struct Student {
+    string name;
+    float marks;
+};
+
+int main() {
+    vector<Student> students;
+    string name;
+    float marks;
+
+    char choice;
+    do {
+        cout << "Enter student name: ";
+        cin >> name;
+        cout << "Enter marks obtained: ";
+        cin >> marks;
+
+        students.push_back({name, marks});
+
+        cout << "Do you want to enter another student? (Y/N): ";
+        cin >> choice;
+    } while (choice == 'Y' || choice == 'y');
+
+    if (students.empty()) {
+        cout << "No students entered." << endl;
+        return 0;
+    }
+
+    float total = 0.0;
+    float highestMarks = students[0].marks;
+    float lowestMarks = students[0].marks;
+
+    for (const auto& student : students) {
+        total += student.marks;
+        if (student.marks > highestMarks) {
+            highestMarks = student.marks;
+        }
+        if (student.marks < lowestMarks) {
+            lowestMarks = student.marks;
+        }
+    }
+
+    float average = total / students.size();
+
+    cout << "Average marks: " << average << endl;
+    cout << "Highest marks: " << highestMarks << endl;
+    cout << "Lowest marks: " << lowestMarks << endl;
+
+    return 0;
+}
